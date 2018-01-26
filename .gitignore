@@ -1,0 +1,16 @@
+build/**
+dist/**
+target/**
+bin/**
+.idea
+.idea/**
+.settings
+.settings/**
+temp
+temp/**
+**.iml
+.project
+.checkstyle
+log/**
+*.log
+m2cache

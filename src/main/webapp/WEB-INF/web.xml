@@ -1,0 +1,29 @@
+<web-app>
+    <display-name>
+        Ticker Reporting v0.0.1
+    </display-name>
+    <servlet>
+        <servlet-name>BaseServlet</servlet-name>
+        <servlet-class>com.mhealth.ticker.support.BaseServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <listener>
+        <listener-class>
+            org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
+        </listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>resteasy-servlet</servlet-name>
+        <servlet-class>
+            org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
+        </servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>com.mhealth.ticker.support.BaseApplication</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>resteasy-servlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+</web-app>
