@@ -22,8 +22,9 @@ public class User {
             try {
                 is = Config.class.getClassLoader().getResourceAsStream("users.json");
                 String source = IOUtils.toString(is, "UTF-8");
-                return new Gson().fromJson(source, new TypeToken<ArrayList<User>>() {
+                LIST_USERS =  new Gson().fromJson(source, new TypeToken<ArrayList<User>>() {
                 }.getType());
+                return LIST_USERS;
             } finally {
                 IOUtils.closeQuietly(is);
             }

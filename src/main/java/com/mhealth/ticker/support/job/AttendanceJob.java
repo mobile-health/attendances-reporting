@@ -15,7 +15,9 @@ import org.quartz.ScheduleBuilder;
 import org.quartz.SimpleScheduleBuilder;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -34,6 +36,8 @@ public class AttendanceJob extends BaseJob {
         log("User size " + users.size());
         log("Last updated " + attendances.getLastUpdated());
         List<Attendance> attendanceList = attendances.getAttendances();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
         if (attendanceList != null && attendanceList.size() > 0) {
             log("Attendance size " + attendanceList.size());
             for (Attendance attendance : attendanceList) {
@@ -47,7 +51,7 @@ public class AttendanceJob extends BaseJob {
                         SlackHookService.HookBody hookBody = new SlackHookService.HookBody();
                         User user = User.get(attendance.getUserId());
                         if (user != null) {
-                            hookBody.setText(user.getName() + " vừa chấm vân tay!");
+                            hookBody.setText("@" + user.getSlackName() + " checked in at " + sdf.format(attendance.getTimestamp()));
                             try {
                                 slackHookService.api().hook(Config.getInstance().getSlack().getHookAlert(), hookBody).execute();
                             } catch (Exception e) {}

@@ -90,6 +90,9 @@ public class SlackHookService {
         @SerializedName("icon_emoji")
         private String iconEmoji = ":nerd_face:";
 
+        @SerializedName("link_names")
+        private Integer linkNames = 1;
+
         private List<Attachment> attachments = new ArrayList<>();
 
         public HookBody() {
@@ -135,6 +138,14 @@ public class SlackHookService {
         public void addAttachment(Attachment attachment) {
             if (attachments == null) attachments = new ArrayList<>();
             attachments.add(attachment);
+        }
+
+        public Integer getLinkNames() {
+            return linkNames;
+        }
+
+        public void setLinkNames(Integer linkNames) {
+            this.linkNames = linkNames;
         }
     }
 
