@@ -2,6 +2,7 @@ package com.mhealth.ticker.support.report;
 
 import com.mhealth.ticker.support.data.Attendance;
 import com.mhealth.ticker.support.data.Attendances;
+import com.mhealth.ticker.support.data.Config;
 import com.mhealth.ticker.support.data.User;
 import com.mhealth.ticker.support.job.BaseJob;
 import com.mhealth.ticker.support.service.AttendanceService;
@@ -29,6 +30,10 @@ public class AttendanceReport {
     }
 
     public String collect(Date from, Date to) throws IOException {
+        return collect(from, to, true, false);
+    }
+
+    public String collect(Date from, Date to, boolean onlyFirstCheckedIn, boolean notify) throws IOException {
         SlackHookService slackHookService = SlackHookService.getInstance();
         AttendanceService attendanceService = AttendanceService.Factory.create();
         Attendances attendances = attendanceService.getAttendances().execute().body();
@@ -53,12 +58,23 @@ public class AttendanceReport {
                         if (user != null) {
                             String check = user.getId() + "-" + sdfDay.format(attendance.getTimestamp());
                             log("Check string " + check);
-                            if (!checkList.contains(check)) {
+                            if (onlyFirstCheckedIn) {
+                                if (!checkList.contains(check)) {
+                                    sb.append(user.getId()).append(",").append(user.getSlackName()).append(",").append(sdf.format(attendance.getTimestamp()));
+                                    sb.append("\n");
+                                    checkList.add(check);
+                                    if (notify) {
+                                        notify(slackHookService, user, sdf, attendance);
+                                    }
+                                } else {
+                                    log("Already checked in this day");
+                                }
+                            } else {
                                 sb.append(user.getId()).append(",").append(user.getSlackName()).append(",").append(sdf.format(attendance.getTimestamp()));
                                 sb.append("\n");
-                                checkList.add(check);
-                            } else {
-                                log("Already checked in this day");
+                                if (notify) {
+                                    notify(slackHookService, user, sdf, attendance);
+                                }
                             }
                         } else {
                             error("Could not found user id " + attendance.getUserId());
@@ -73,6 +89,14 @@ public class AttendanceReport {
             }
         }
         return sb.toString();
+    }
+
+    public void notify(SlackHookService slackHookService, User user, SimpleDateFormat sdf, Attendance attendance) {
+        SlackHookService.HookBody hookBody = new SlackHookService.HookBody();
+        hookBody.setText("@" + user.getSlackName() + " checked in at " + sdf.format(attendance.getTimestamp()));
+        try {
+            slackHookService.api().hook(Config.getInstance().getSlack().getHookAlert(), hookBody).execute();
+        } catch (Exception e) {}
     }
 
     public String getTag() {
@@ -109,11 +133,16 @@ public class AttendanceReport {
 
     public static void main(String[] args) throws IOException, ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String csvReport = new AttendanceReport().collect(sdf.parse("2018/05/01 00:00:00"), sdf.parse("2018/05/31 23:59:59"));
-        File report = new File("/Users/luhonghai/manadr/report/report.csv");
+        File report = new File("/Users/luhonghai/manadr/report/report-only-first-checked-in.csv");
         if (report.exists()) {
             FileUtils.forceDelete(report);
         }
-        FileUtils.writeStringToFile(report, csvReport, "UTF-8");
+        FileUtils.writeStringToFile(report, new AttendanceReport().collect(sdf.parse("2018/05/01 00:00:00"), sdf.parse("2018/05/31 23:59:59")), "UTF-8");
+
+        report = new File("/Users/luhonghai/manadr/report/report-full.csv");
+        if (report.exists()) {
+            FileUtils.forceDelete(report);
+        }
+        FileUtils.writeStringToFile(report, new AttendanceReport().collect(sdf.parse("2018/05/01 00:00:00"), sdf.parse("2018/05/31 23:59:59"), false, false), "UTF-8");
     }
 }
