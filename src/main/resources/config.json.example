@@ -3,8 +3,8 @@
   "mongo": "mongo_db",
   "mongo_name": "attendance",
   "slack": {
-    "hook_error": "https://hooks.slack.com/services/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",
-    "hook_health_check": "https://hooks.slack.com/services/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",
-    "hook_alert": "https://hooks.slack.com/services/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"
+    "hook_error": "https://hooks.slack.com/services/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",
+    "hook_health_check": "https://hooks.slack.com/services/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",
+    "hook_alert": "https://hooks.slack.com/services/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"
   }
 }

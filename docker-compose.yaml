@@ -3,9 +3,9 @@
    reporting:
      image: registry.manadrdev.com/attendances-reporting
      depends_on:
-       - mongo_db
-   mongo_db:
+       - mongo
+   mongo:
       image: mongo
-      volumes:
-        - /datadrive/attendances/d1:/var/lib/mongodb
-        - /datadrive/attendances/d2:/data/db
+#      volumes:
+#        - /datadrive/attendances/d1:/var/lib/mongodb
+#        - /datadrive/attendances/d2:/data/db

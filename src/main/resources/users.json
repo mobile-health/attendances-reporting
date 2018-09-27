@@ -148,5 +148,23 @@
     "name": "Kevin",
     "slack_name": "kevin",
     "slack_id": ""
+  },
+  {
+    "id": 26,
+    "name": "Alan",
+    "slack_name": "alan",
+    "slack_id": ""
+  },
+  {
+    "id": 27,
+    "name": "Rock",
+    "slack_name": "rock",
+    "slack_id": ""
+  },
+  {
+    "id": 28,
+    "name": "Finn",
+    "slack_name": "finn",
+    "slack_id": ""
   }
 ]
