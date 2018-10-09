@@ -26,7 +26,7 @@ public class MongoHelper {
     private static MongoDatabase getMongoDatabase() {
         if (database == null) {
             synchronized (lock) {
-                MongoClient mongoClient = new MongoClient(Config.getInstance().isDebug() ? "localhost" : Config.getInstance().getMongo());
+                MongoClient mongoClient = new MongoClient(Config.getInstance().getMongo());
                 database = mongoClient.getDatabase(Config.getInstance().getMongoName());
             }
         }

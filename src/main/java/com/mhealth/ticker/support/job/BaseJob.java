@@ -1,5 +1,6 @@
 package com.mhealth.ticker.support.job;
 
+import com.mhealth.ticker.support.data.Config;
 import com.mhealth.ticker.support.data.HealthCheck;
 import com.mhealth.ticker.support.data.mongo.MongoHelper;
 import com.mhealth.ticker.support.service.SlackHookService;
@@ -20,9 +21,8 @@ public abstract class BaseJob implements Job {
     public static final List<Class<? extends BaseJob>> REGISTERED_JOBS = new ArrayList<>();
 
     static {
-        //REGISTERED_JOBS.add(HealthCheckJob.class);
-        LAST_ERROR_SEND_TIME.put(HealthCheckJob.class.getSimpleName(), 0L);
         REGISTERED_JOBS.add(AttendanceJob.class);
+        REGISTERED_JOBS.add(HealthCheckJob.class);
         LAST_ERROR_SEND_TIME.put(AttendanceJob.class.getSimpleName(), 0L);
     }
 
@@ -89,7 +89,7 @@ public abstract class BaseJob implements Job {
     }
 
     public void log(String log) {
-        logger.info(getTag() + " " + log);
+    	System.out.println(log);
     }
 
     public void error(String message) {

@@ -1,6 +1,6 @@
 {
   "debug": false,
-  "mongo": "mongo_db",
+  "mongo": "mongo",
   "mongo_name": "attendance",
   "slack": {
     "hook_error": "https://hooks.slack.com/services/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",

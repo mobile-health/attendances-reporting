@@ -58,6 +58,6 @@ public class HealthCheckJob extends BaseJob {
 
     @Override
     ScheduleBuilder scheduleBuilder() {
-        return SimpleScheduleBuilder.repeatHourlyForever(2);
+        return SimpleScheduleBuilder.repeatHourlyForever(24);
     }
 }
