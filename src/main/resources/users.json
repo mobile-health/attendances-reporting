@@ -19,14 +19,8 @@
   },
   {
     "id": 4,
-    "name": "Alex",
-    "slack_name": "alex",
-    "slack_id": ""
-  },
-  {
-    "id": 5,
-    "name": "Jason",
-    "slack_name": "jason",
+    "name": "Rock",
+    "slack_name": "rock",
     "slack_id": ""
   },
   {
@@ -43,14 +37,14 @@
   },
   {
     "id": 8,
-    "name": "Paul",
-    "slack_name": "paul",
+    "name": "Alan",
+    "slack_name": "alan",
     "slack_id": ""
   },
   {
     "id": 9,
-    "name": "William",
-    "slack_name": "wil",
+    "name": "Finn",
+    "slack_name": "finn",
     "slack_id": ""
   },
   {
@@ -75,30 +69,6 @@
     "id": 13,
     "name": "Lily",
     "slack_name": "lily",
-    "slack_id": ""
-  },
-  {
-    "id": 14,
-    "name": "Jet",
-    "slack_name": "jet",
-    "slack_id": ""
-  },
-  {
-    "id": 15,
-    "name": "Harry",
-    "slack_name": "harry",
-    "slack_id": ""
-  },
-  {
-    "id": 16,
-    "name": "Vincent",
-    "slack_name": "vincent",
-    "slack_id": ""
-  },
-  {
-    "id": 17,
-    "name": "Eric",
-    "slack_name": "eric",
     "slack_id": ""
   },
   {
@@ -147,24 +117,6 @@
     "id": 25,
     "name": "Kevin",
     "slack_name": "kevin",
-    "slack_id": ""
-  },
-  {
-    "id": 26,
-    "name": "Alan",
-    "slack_name": "alan",
-    "slack_id": ""
-  },
-  {
-    "id": 27,
-    "name": "Rock",
-    "slack_name": "rock",
-    "slack_id": ""
-  },
-  {
-    "id": 28,
-    "name": "Finn",
-    "slack_name": "finn",
     "slack_id": ""
   }
 ]
